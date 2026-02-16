@@ -1,17 +1,22 @@
 package Entity;
 
+import util.PasswordUtil;
+
 public class User {
     private String userName;
-    private String password;
+    private String hashedPassword;
 
     public User(String name,String password){
         this.userName  = name;
-        this.password = password;
+        this.hashedPassword = PasswordUtil.hashPassword(password);
     }
 
     public void setUserName(String name){userName = name;}
     public String getUserName(){return userName;}
-    public void setPassword(String password){this.password = password;}
-    public String getPassword(){return password;}
+    public String getHashedPasswordPassword(){return hashedPassword;}
+
+    public boolean verifyPassWord(String passwordToVerify){
+        return PasswordUtil.verifyPassword(passwordToVerify,this.hashedPassword);
+    }
 
 }

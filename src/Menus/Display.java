@@ -68,7 +68,7 @@ public class Display {
         //check if the user exists
         boolean found = false;
         for (User user : users) {
-            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
+            if (user.getUserName().equals(username) && user.verifyPassWord(password)) {
                 found = true;
                 System.out.println("Welcome " + username);
                 displayGradeMenu();
@@ -125,29 +125,28 @@ public class Display {
             try {
                 System.out.println("\n=== Grade Calculator Menu ===");
                 System.out.println("1. Add Student");
-                System.out.println("2. View All Students");
-                System.out.println("3. Calculate Average");
-                System.out.println("4. Logout");
+                System.out.println("2. Add subject to student");
+                System.out.println("3. View All Students");
+                System.out.println("4. Calculate Overall Average");
+                System.out.println("5. Logout");
 
                 System.out.print("Enter your choice: ");
                 int choice = userInput.nextInt();
                 userInput.nextLine();
                 switch (choice) {
                     case 1:
-                        System.out.print("Enter student's name: ");
-                        String name = userInput.nextLine();
-                        System.out.print("Enter student's grade: ");
-                        double grade = userInput.nextDouble();
-                        userInput.nextLine();
-                        Services.addStudent(name, grade);
+                        addStudentMenu();
                         break;
                     case 2:
-                        Services.displayAllStudents();
+                        addSubjectMenu();
                         break;
                     case 3:
-                        System.out.println("Mean score: " + Services.calculateAverage());
+                        Services.displayAllStudents();
                         break;
                     case 4:
+                        System.out.println("Mean score: " + Services.calculateAverage());
+                        break;
+                    case 5:
                         loggedIn = false;
                         System.out.println("Logged out successfully!");
                         break;
@@ -157,11 +156,32 @@ public class Display {
 
 
                 }
+
+
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input!!Enter the right choice");
                 userInput.nextLine();
             }
         }
+
+
+    }
+    private static void addStudentMenu(){
+        System.out.print("Enter student name: ");
+        String studentName = userInput.nextLine();
+        Services.addStudent(studentName);
+
+    }
+    private static void addSubjectMenu(){
+        System.out.print("Enter student name: ");
+        String studentName = userInput.nextLine();
+        System.out.print("Enter subject name: ");
+        String subject = userInput.nextLine();
+        System.out.print("Enter grade (0-100): ");
+        double grade = userInput.nextDouble();
+        userInput.nextLine();
+
+        Services.addSubjectsToStudent(studentName, subject, grade);
     }
 }
 
