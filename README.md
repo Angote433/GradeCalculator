@@ -1,114 +1,99 @@
-# Grade Calculator with User Authentication
+# Student Grade Calculator
 
-A Java console application that allows users to create accounts, log in, and manage student grades but with jsut simple average calculation features.
+A Java console application for managing student grades with user authentication and advanced grading features.
 
-## 📋 Project Overview
+## Features
 
-This is a student management system built in Java that demonstrates core Object-Oriented Programming (OOP) concepts. The application provides user authentication and grade management functionality through a command-line interface.
+### Authentication
+- ✅ User registration with username and password
+- ✅ Secure login system
+- ✅ **Password encryption using SHA-256 hashing**
 
-## ✨ Features
+### Student Management
+- ✅ Add students to the system
+- ✅ **Multiple subject support** - Each student can have grades in multiple subjects (Math, English, Science, etc.)
+- ✅ View all students with their subjects and grades
+- ✅ **Automatic letter grade assignment** (A, B, C, D, F) based on numeric scores
 
-### User Authentication
-- **Create Account**: New users can register with a username and password
-- **Login System**: Secure login with credential validation
-- **Password Confirmation**: Ensures users enter their password correctly during registration
-- **Duplicate Username Prevention**: Checks if username already exists before creating account
+### Grade Analytics
+- ✅ Calculate average grade per student
+- ✅ Calculate overall class average
+- ✅ View grades with letter grade equivalents
 
-### Grade Management
-- **Add Students**: Add students with their names and grades to the system
-- **View All Students**: Display a list of all students and their grades
-- **Calculate Average**: Automatically calculate the average grade across all students
-- **User-Specific Sessions**: Each logged-in user has their own session
+### Grading Scale
+- A: 90-100
+- B: 80-89
+- C: 70-79
+- D: 60-69
+- F: 0-59
 
-### Error Handling
-- Input validation for menu choices
-- Exception handling for invalid input types
-- User-friendly error messages
+## Technologies Used
+- **Java 25** (latest version with simplified main method)
+- **HashMap** for storing multiple subjects per student
+- **ArrayList** for managing students and users
+- **SHA-256** for password hashing
+- **Exception handling** for input validation
 
-## 🏗️ Project Structure
-
+## Project Structure
 ```
 OOP/
 ├── Entity/
-│   ├── User.java          # User model (username, password)
-│   └── Student.java       # Student model (name, grade)
+│   ├── User.java          # User model with hashed password
+│   └── Student.java       # Student model with subjects
 ├── Menus/
-│   └── Display.java       # UI logic and menu displays
-└── service/
-    └── Services.java      # Business logic for student operations
+│   └── Display.java       # UI and menu system
+├── service/
+│   └── Services.java      # Business logic for student operations
+└── util/
+    └── PasswordUtil.java  # Password hashing utilities
 ```
 
-## 🛠️ Technologies Used
-
-- **Java 25**: Latest JDK with simplified main method syntax
-- **Collections Framework**: ArrayList for data storage
-- **Exception Handling**: InputMismatchException handling
-- **OOP Principles**: Encapsulation, separation of concerns
-
-## 🚀 How to Run
-
-1. Clone the repository:
+## How to Run
+1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 ```
+2. Open in IntelliJ IDEA (or your preferred IDE)
+3. Run the `Display.java` file
+4. Follow the menu prompts
 
-2. Navigate to the project directory:
-```bash
-cd YOUR_REPO_NAME
-```
+## Usage Example
+1. Create an account with username and password
+2. Login with your credentials
+3. Add students to the system
+4. Add subjects and grades for each student
+5. View all students with letter grades
+6. Calculate class averages
+7. Logout when done
 
-3. Compile and run:
-```bash
-javac Menus/Display.java
-java Menus.Display
-```
+## Security Features
+- Passwords are **never stored in plain text**
+- SHA-256 hashing algorithm used for password security
+- Password verification without exposing original password
 
-## 💡 Usage
+## Future Features (Coming Soon)
+- [ ] JavaFX Graphical User Interface
+- [ ] File persistence (save/load data)
+- [ ] Search for specific students
+- [ ] Edit and delete students
+- [ ] Find top/bottom performers
+- [ ] Grade statistics and charts
+- [ ] Export reports to PDF
 
-1. **Main Menu**: Choose to create an account, login, or exit
-2. **Create Account**: Enter a unique username and password
-3. **Login**: Use your credentials to access the grade calculator
-4. **Grade Calculator Menu**:
-   - Add students with their grades
-   - View all students and their grades
-   - Calculate the average grade
-   - Logout when finished
-
-## 📚 Learning Objectives
-
-This project was built to practice and demonstrate:
-- Object-Oriented Programming concepts (classes, objects, methods)
-- Working with multiple classes and packages
-- ArrayList manipulation and iteration
-- User input handling with Scanner
+## What I Learned
+- Object-Oriented Programming (OOP) concepts
+- Working with Collections (ArrayList, HashMap)
+- Password security and hashing
 - Exception handling
-- Static vs instance members
-- Basic authentication logic
-- Separation of concerns (UI vs Business Logic)
+- Multi-class application architecture
+- Version control with Git
 
-## 🔮 Future Enhancements
+## Author
+[Arnold Angote]
 
-- [ ] Add JavaFX GUI interface
-- [ ] Find highest and lowest grades
-- [ ] Delete and update student records
-- [ ] Save data to file (persistence)
-- [ ] Grade validation (0-100 range)
-- [ ] Search functionality for specific students
-- [ ] Password encryption
-- [ ] Multiple subject support per student
+## Version History
+- **v2.0** (Current) - Multiple subjects, letter grades, password encryption
+- **v1.0** - Basic grade calculator with login system
 
-## 📝 Version History
-
-### v1.0.0 (Current)
-- Initial release
-- User authentication system
-- Basic grade calculator functionality
-- Console-based interface
-
-## 👨‍💻 Author
-
-Built as a learning project while studying Java and Object-Oriented Programming.
-
-## 📄 Licenses
-
-This project is open source and available for educational purposes.
+## License
+This project is for educational purposes.
