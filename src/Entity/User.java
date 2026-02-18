@@ -10,6 +10,10 @@ public class User {
         this.userName  = name;
         this.hashedPassword = PasswordUtil.hashPassword(password);
     }
+    public User(String userName, String hashedPassword, boolean isAlreadyHashed) {
+        this.userName = userName;
+        this.hashedPassword = hashedPassword;  // Don't hash again!
+    }
 
     public void setUserName(String name){userName = name;}
     public String getUserName(){return userName;}

@@ -3,6 +3,8 @@ package Menus;
 import Entity.Student;
 import Entity.User;
 import service.Services;
+import util.FileManager;
+import util.Validator;
 
 import java.security.Provider;
 import java.util.ArrayList;
@@ -16,7 +18,12 @@ public class Display {
 
 
     static void main() {
+        users = FileManager.loadUsers();
+        Services.loadStudentsFromFile();
         displayMenu();
+
+        FileManager.saveUsers(users);
+        Services.saveStudentsToFile();
     }
 
     public static void displayMenu() {
@@ -89,6 +96,11 @@ public class Display {
         System.out.print("Enter new user name: ");
         String userName = userInput.nextLine();
 
+        if(!Validator.isValidUserName(userName)){
+            System.out.println("Invalid username!! Must be between 3 - 20 characters,alphnumeric only.");
+            return;
+        }
+
         boolean exists = false;
         for (User user : users) {
             if (user.getUserName().equals(userName)) {
@@ -106,6 +118,11 @@ public class Display {
         System.out.print("Create your password: ");
         String password = userInput.nextLine();
 
+        if (!Validator.isValidPassword(password)) {
+            System.out.println("Password too short! Must be at least 6 characters.");
+            return;
+        }
+
         System.out.println("Confirm your password: ");
         String confirmPass = userInput.nextLine();
 
@@ -113,6 +130,7 @@ public class Display {
             User user = new User(userName, password);
             users.add(user);
             System.out.println("Account succesfully created");
+            FileManager.saveUsers(users);
         } else {
             System.out.println("Passwords don't match");
         }
@@ -128,7 +146,13 @@ public class Display {
                 System.out.println("2. Add subject to student");
                 System.out.println("3. View All Students");
                 System.out.println("4. Calculate Overall Average");
-                System.out.println("5. Logout");
+                System.out.println("5. Find top performer");
+                System.out.println("6. Find lowest performer");
+                System.out.println("7. Search ");
+                System.out.println("8. Edit subject");
+                System.out.println("9. Delete student");
+                System.out.println("10. Show Grade Statistics");
+                System.out.println("11. Logout");
 
                 System.out.print("Enter your choice: ");
                 int choice = userInput.nextInt();
@@ -147,9 +171,31 @@ public class Display {
                         System.out.println("Mean score: " + Services.calculateAverage());
                         break;
                     case 5:
+                        Services.findTopPerformer();
+                        break;
+
+                    case  6:
+                        Services.findLowestPerformer();
+                        break;
+                    case 7:
+                        searchStudentMenu();
+                        break;
+                    case 8:
+                        editSubjectMenu();
+                        break;
+                    case 9:
+                        System.out.println("To be implemented");
+                        break;
+                    case 10:
+                        Services.showGradeStatistics();
+                        break;
+                    case 11:
                         loggedIn = false;
                         System.out.println("Logged out successfully!");
                         break;
+
+
+
                     default:
                         System.out.println("Invalid choice!");
                         userInput.nextLine();
@@ -169,19 +215,51 @@ public class Display {
     private static void addStudentMenu(){
         System.out.print("Enter student name: ");
         String studentName = userInput.nextLine();
+        if(!Validator.isValidName(studentName)){
+            System.out.println("Name cannot be empty!! ");
+            return;
+        }
         Services.addStudent(studentName);
 
     }
     private static void addSubjectMenu(){
         System.out.print("Enter student name: ");
         String studentName = userInput.nextLine();
+        if(!Validator.isValidName(studentName)){
+            System.out.println("Invalid name!! Name cannot be empty!!");
+            return;
+        }
+
         System.out.print("Enter subject name: ");
         String subject = userInput.nextLine();
+        if(!Validator.isValidName(subject)){
+            System.out.println("Invalid subject name!! Subject name cannot be empty");
+        }
+
         System.out.print("Enter grade (0-100): ");
         double grade = userInput.nextDouble();
         userInput.nextLine();
+        if(!Validator.isValidGrade(grade)){
+            System.out.println("Invalid grade!!Grade must be between 0 and 100");
+        }
 
         Services.addSubjectsToStudent(studentName, subject, grade);
+    }
+    private static void editSubjectMenu(){
+        System.out.print("Enter student name: ");
+        String studentName = userInput.nextLine();
+        System.out.print("Enter subject name: ");
+        String subject = userInput.nextLine();
+        System.out.print("Enter new grade (0-100): ");
+        double newGrade = userInput.nextDouble();
+        userInput.nextLine();
+
+        Services.editSubjectGrade(studentName, subject, newGrade);
+    }
+    private static void searchStudentMenu() {
+        System.out.print("Enter student name to search: ");
+        String name = userInput.nextLine();
+        Services.searchStudentByName(name);
     }
 }
 

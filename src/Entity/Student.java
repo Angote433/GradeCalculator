@@ -33,6 +33,13 @@ public class Student {
         }
         return totalMarks / subjects.size();
     }
+    public boolean updateGrade(String subjectName,double newGrade){
+        if(subjects.containsKey(subjectName)){
+            subjects.put(subjectName , newGrade);
+            return true;
+        }
+        return false;
+    }
     public static String getLetterGrade(double grade) {
         if (grade >= 90) {
             return "A";
